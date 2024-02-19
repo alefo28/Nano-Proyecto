@@ -6,13 +6,14 @@ const Elemento = ({ elemento }) => {
     <>
       {elemento.isNull !== null && (
         <>
+        <button hidden disabled className=" bg-indigo-500 bg-black bg-lime-500 bg-violet-500 bg-sky-500 bg-red-500 bg-purple-500 bg-teal-500 bg-orange-500 bg-blue-500"></button>
           {elemento.En === null ? (
             <button
               disabled
               onClick={() => {
                 setearValor(elemento);
               }}
-              className={` text-white border rounded w-20 bg--500  bg-${
+              className={` text-white border rounded w-20   bg-${
                 elemento.color === "black" ? `black` : elemento.color
               }${elemento.color === "black" ? "" : "-500"} 
                hover:bg-white hover:text-black `}

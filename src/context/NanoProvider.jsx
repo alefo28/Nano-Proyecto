@@ -16,10 +16,12 @@ const NanoProvider = ({ children }) => {
   const revisar = (is) => {
     if (is) {
       setPrimerEl(0);
+      
     } else {
       setSegundoEl(0);
 
     }
+    setMensaje("")  
     setIsOpen(true);
     setIsfirst(is);
   };

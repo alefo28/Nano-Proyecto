@@ -14,11 +14,18 @@ const NanoProvider = ({ children }) => {
     setIsOpen(!isOpen);
   };
   const revisar = (is) => {
+    if (is) {
+      setPrimerEl(0);
+    } else {
+      setSegundoEl(0);
+
+    }
     setIsOpen(true);
     setIsfirst(is);
   };
 
   const setearValor = (valor) => {
+
     if (isfirst) {
       setPrimerEl(valor);
     } else {
@@ -32,6 +39,7 @@ const NanoProvider = ({ children }) => {
     setSpinner(true);
     const valor1 = primerEl.En;
     const valor2 = segundoEl.En;
+
     let num = valor1 - valor2;
     let res = num < 0 ? num * -1 : num;
     if (num < 0 ? num * -1 <= 0.4 : num < 0.4) {

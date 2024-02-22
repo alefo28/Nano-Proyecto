@@ -4,7 +4,7 @@ const NanoContext = createContext();
 
 const NanoProvider = ({ children }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isfirst, setIsfirst] = useState(true);
+  const [isfirst, setIsfirst] = useState(null);
   const [primerEl, setPrimerEl] = useState(0);
   const [segundoEl, setSegundoEl] = useState(0);
   const [mensaje, setMensaje] = useState("");
@@ -14,20 +14,12 @@ const NanoProvider = ({ children }) => {
     setIsOpen(!isOpen);
   };
   const revisar = (is) => {
-    if (is) {
-      setPrimerEl(0);
-      
-    } else {
-      setSegundoEl(0);
-
-    }
-    setMensaje("")  
+    setMensaje("");
     setIsOpen(true);
     setIsfirst(is);
   };
 
   const setearValor = (valor) => {
-
     if (isfirst) {
       setPrimerEl(valor);
     } else {

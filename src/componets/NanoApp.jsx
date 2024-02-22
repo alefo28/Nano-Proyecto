@@ -31,7 +31,7 @@ const NanoApp = () => {
               className=" bg-white p-16 rounded-lg w-1/2 border-gray-400 border text-gray-600 "
             >
               {primerEl ? (
-                <Elemento elemento={primerEl} />
+                <Elemento elemento={primerEl} not={false}/>
               ) : (
                 <div className=" border border-dashed border-gray-500 rounded-xl p-3">
                   Seleccione un
@@ -49,7 +49,7 @@ const NanoApp = () => {
               className=" bg-white p-16 rounded-lg w-1/2 border-gray-400 border text-gray-600"
             >
               {segundoEl ? (
-                <Elemento elemento={segundoEl} />
+                <Elemento elemento={segundoEl} not={false}/>
               ) : (
                 <div className=" border border-dashed border-gray-500 rounded-xl p-3">
                   Seleccione un

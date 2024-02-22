@@ -9,7 +9,7 @@ const TablaPeriodica = () => {
           <tr>
             {filas.map((elemento) => (
               <th className=" text-sm">
-                <Elemento key={elemento.nA} elemento={elemento} />
+                <Elemento key={elemento.nA} elemento={elemento} not={true} />
               </th>
             ))}
           </tr>

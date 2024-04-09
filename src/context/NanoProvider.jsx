@@ -47,6 +47,84 @@ const NanoProvider = ({ children }) => {
       setSpinner(false);
     }, 1000);
   };
+
+  function determinarEstructuraCristalina(angulos, longitudOnda) {
+    
+    // Convertir los ángulos de los picos de difracción de grados a radianes
+    const angulosRadianes = angulos.map((angulo) => (angulo * Math.PI) / 180);
+
+    // Función para calcular la constante de celda elemental "a" según la ley de Bragg
+    const calcularConstanteCelda = (angulo, longitudOnda) => {
+      return longitudOnda / (2 * Math.sin(angulo / 2));
+    };
+
+    // Array para almacenar todas las constantes de celda calculadas
+    const constantesCelda = angulosRadianes.map((angulo) =>
+      calcularConstanteCelda(angulo, longitudOnda)
+    );
+
+    // Determinar la estructura cristalina más probable
+    const estructurasCristalinas = [
+      "Cúbica",
+      "Tetragonal",
+      "Ortorrómbica",
+      "Romboédrica",
+      "Monoclínica",
+      "Triclínica",
+    ];
+    const estructuraCristalina = determinarEstructura(constantesCelda);
+
+    return {
+      estructuraCristalina,
+      constantesCelda,
+    };
+  }
+
+  function determinarEstructura(constantesCelda) {
+    const estructurasCristalinas = [
+      "Cúbica",
+      "Tetragonal",
+      "Ortorrómbica",
+      "Romboédrica",
+      "Monoclínica",
+      "Triclínica",
+    ];
+    const valoresTípicos = {
+      Cúbica: [1, 1, 1],
+      Tetragonal: [1, 1, Math.sqrt(2)],
+      Ortorrómbica: [1, Math.sqrt(2), Math.sqrt(3)],
+      Romboédrica: [1, 1, Math.sqrt(3)],
+      Monoclínica: [1, 1, Math.sqrt(2)],
+      Triclínica: [1, 1, 1],
+    };
+
+    let mejorCoincidencia = null;
+    let mejorDiferencia = Number.MAX_VALUE;
+
+    for (const estructura of estructurasCristalinas) {
+      const valoresTipicosEstructura = valoresTípicos[estructura];
+      const diferencia = calcularDiferencia(
+        constantesCelda,
+        valoresTipicosEstructura
+      );
+      if (diferencia < mejorDiferencia) {
+        mejorDiferencia = diferencia;
+        mejorCoincidencia = estructura;
+      }
+    }
+
+    return mejorCoincidencia;
+  }
+
+  // Función auxiliar para calcular la diferencia entre dos conjuntos de constantes de celda
+  function calcularDiferencia(constantesCelda1, constantesCelda2) {
+    let diferenciaTotal = 0;
+    for (let i = 0; i < constantesCelda1.length; i++) {
+      diferenciaTotal += Math.abs(constantesCelda1[i] - constantesCelda2[i]);
+    }
+    return diferenciaTotal;
+  }
+
   return (
     <NanoContext.Provider
       value={{
@@ -60,6 +138,7 @@ const NanoProvider = ({ children }) => {
         revisar,
         setearValor,
         calcularElectro,
+        determinarEstructuraCristalina,
       }}
     >
       {children}

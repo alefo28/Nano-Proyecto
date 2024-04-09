@@ -1,9 +1,9 @@
 import { useState } from "react";
-import Modal from "./Modal";
+import Modal from "../componets/Modal";
 import useNano from "../hook/UseNano";
-import Elemento from "./Elemento";
+import Elemento from "../componets/Elemento";
 
-const NanoApp = () => {
+const ElectroNegatividad = () => {
   const {
     isOpen,
     cerrarModal,
@@ -19,7 +19,9 @@ const NanoApp = () => {
   return (
     <>
       <header className="my-10">
-        <h1 className="text-black text-center text-4xl font-black">Calcular Tipo De Enlace </h1>
+        <h1 className="text-black text-center text-4xl font-black">
+          Calcular Tipo De Enlace{" "}
+        </h1>
       </header>
       <main className=" bg-gray-200">
         <div className=" md:w-full lg:flex lg:justify-between p-10">
@@ -31,7 +33,7 @@ const NanoApp = () => {
               className=" bg-white p-16 rounded-lg w-1/2 border-gray-400 border text-gray-600 "
             >
               {primerEl ? (
-                <Elemento elemento={primerEl} not={false}/>
+                <Elemento elemento={primerEl} not={false} />
               ) : (
                 <div className=" border border-dashed border-gray-500 rounded-xl p-3">
                   Seleccione un
@@ -49,7 +51,7 @@ const NanoApp = () => {
               className=" bg-white p-16 rounded-lg w-1/2 border-gray-400 border text-gray-600"
             >
               {segundoEl ? (
-                <Elemento elemento={segundoEl} not={false}/>
+                <Elemento elemento={segundoEl} not={false} />
               ) : (
                 <div className=" border border-dashed border-gray-500 rounded-xl p-3">
                   Seleccione un
@@ -94,9 +96,12 @@ const NanoApp = () => {
           </div>
         </div>
       </main>
+      <div className=" flex justify-center">
       <Modal isOpen={isOpen} cerrarModal={cerrarModal} isfirst={isfirst} />
+
+      </div>
     </>
   );
 };
 
-export default NanoApp;
+export default ElectroNegatividad;

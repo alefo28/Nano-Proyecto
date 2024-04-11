@@ -29,7 +29,7 @@ export default function ModalCrystal({ open, handleOpen, resultado, imagen }) {
                     <img
                       object-cover
                       className="w-1/4 h-1/4 ml-10 mt-2 item-center"
-                      src={`../../public/${imagen}`}
+                      src={`/${imagen}`}
                       alt="nature image"
                     />
                   </div>

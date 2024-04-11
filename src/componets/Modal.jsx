@@ -15,6 +15,7 @@ const Modal = ({ isOpen, cerrarModal, isfirst }) => {
       open={isOpen}
       handler={cerrarModal}
       className=" flex justify-center"
+      size="xxl"
     >
       <div>
         <DialogHeader>

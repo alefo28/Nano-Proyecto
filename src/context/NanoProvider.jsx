@@ -48,81 +48,69 @@ const NanoProvider = ({ children }) => {
     }, 1000);
   };
 
-  function determinarEstructuraCristalina(angulos, longitudOnda) {
-    
-    // Convertir los ángulos de los picos de difracción de grados a radianes
-    const angulosRadianes = angulos.map((angulo) => (angulo * Math.PI) / 180);
+  function determinarEstructuraCristalina(angulosDifraccion, longitudOnda) {
+    const umbral = 2; // Umbral de tolerancia para comparaciones de ángulos
 
-    // Función para calcular la constante de celda elemental "a" según la ley de Bragg
-    const calcularConstanteCelda = (angulo, longitudOnda) => {
-      return longitudOnda / (2 * Math.sin(angulo / 2));
-    };
+    // Comparamos los ángulos de difracción con los ángulos característicos de cada estructura
+    const angulosCubica = [90, 90, 90];
+    const angulosTetragonal = [90, 90, 90];
+    const angulosOrtorrombica = [90, 90, 90];
+    const angulosHexagonal = [90, 90, 120]; // Ángulos para la estructura hexagonal
+    const angulosMonoclinica = [90, 90, 90];
+    const angulosTriclinica = [90, 90, 90];
 
-    // Array para almacenar todas las constantes de celda calculadas
-    const constantesCelda = angulosRadianes.map((angulo) =>
-      calcularConstanteCelda(angulo, longitudOnda)
-    );
-
-    // Determinar la estructura cristalina más probable
-    const estructurasCristalinas = [
-      "Cúbica",
-      "Tetragonal",
-      "Ortorrómbica",
-      "Romboédrica",
-      "Monoclínica",
-      "Triclínica",
-    ];
-    const estructuraCristalina = determinarEstructura(constantesCelda);
-
-    return {
-      estructuraCristalina,
-      constantesCelda,
-    };
-  }
-
-  function determinarEstructura(constantesCelda) {
-    const estructurasCristalinas = [
-      "Cúbica",
-      "Tetragonal",
-      "Ortorrómbica",
-      "Romboédrica",
-      "Monoclínica",
-      "Triclínica",
-    ];
-    const valoresTípicos = {
-      Cúbica: [1, 1, 1],
-      Tetragonal: [1, 1, Math.sqrt(2)],
-      Ortorrómbica: [1, Math.sqrt(2), Math.sqrt(3)],
-      Romboédrica: [1, 1, Math.sqrt(3)],
-      Monoclínica: [1, 1, Math.sqrt(2)],
-      Triclínica: [1, 1, 1],
-    };
-
-    let mejorCoincidencia = null;
-    let mejorDiferencia = Number.MAX_VALUE;
-
-    for (const estructura of estructurasCristalinas) {
-      const valoresTipicosEstructura = valoresTípicos[estructura];
-      const diferencia = calcularDiferencia(
-        constantesCelda,
-        valoresTipicosEstructura
-      );
-      if (diferencia < mejorDiferencia) {
-        mejorDiferencia = diferencia;
-        mejorCoincidencia = estructura;
+    // Función para verificar si dos conjuntos de ángulos son iguales dentro de un umbral
+    function sonIguales(angulos1, angulos2) {
+      for (let i = 0; i < angulos1.length; i++) {
+        if (Math.abs(angulos1[i] - angulos2[i]) > umbral) {
+          return false;
+        }
       }
+      return true;
     }
 
-    return mejorCoincidencia;
-  }
-
-  // Función auxiliar para calcular la diferencia entre dos conjuntos de constantes de celda
-  function calcularDiferencia(constantesCelda1, constantesCelda2) {
-    let diferenciaTotal = 0;
-    for (let i = 0; i < constantesCelda1.length; i++) {
-      diferenciaTotal += Math.abs(constantesCelda1[i] - constantesCelda2[i]);
+    // Función para calcular la constante de la celda elemental "a"
+    function calcularConstanteCelda(lambda, theta, h, k, l) {
+      return (
+        (lambda / (2 * Math.sin((theta * Math.PI) / 180))) *
+        Math.sqrt(h ** 2 + k ** 2 + l ** 2)
+      );
     }
-    return diferenciaTotal;
+
+    // Comprobamos cada tipo de estructura cristalina
+    if (sonIguales(angulosDifraccion, angulosCubica)) {
+      return {
+        estructuraCristalina: "Cúbica",
+        a: calcularConstanteCelda(longitudOnda, angulosDifraccion[0], 1, 1, 1),
+      };
+    } else if (sonIguales(angulosDifraccion, angulosTetragonal)) {
+      return {
+        estructuraCristalina: "Tetragonal",
+        a: calcularConstanteCelda(longitudOnda, angulosDifraccion[0], 1, 1, 0),
+      };
+    } else if (sonIguales(angulosDifraccion, angulosOrtorrombica)) {
+      return {
+        estructuraCristalina: "Ortorrómbica",
+        a: calcularConstanteCelda(longitudOnda, angulosDifraccion[0], 1, 1, 1),
+      };
+    } else if (sonIguales(angulosDifraccion, angulosHexagonal)) {
+      return {
+        estructuraCristalina: "Hexagonal",
+        a: calcularConstanteCelda(longitudOnda, angulosDifraccion[0], 1, 1, 1),
+      };
+    } else if (sonIguales(angulosDifraccion, angulosMonoclinica)) {
+      return {
+        estructuraCristalina: "Monoclínica",
+        a: calcularConstanteCelda(longitudOnda, angulosDifraccion[0], 1, 1, 1),
+      };
+    } else if (sonIguales(angulosDifraccion, angulosTriclinica)) {
+      return {
+        estructuraCristalina: "Triclínica",
+        a: calcularConstanteCelda(longitudOnda, angulosDifraccion[0], 1, 1, 1),
+      };
+    } else {
+      return { estructuraCristalina: "Estructura desconocida", a: null }; // Si ninguno de los ángulos coincide
+    }
   }
 
   return (

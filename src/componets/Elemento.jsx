@@ -9,7 +9,7 @@ const Elemento = ({ elemento, not }) => {
           <button
             hidden
             disabled
-            className=" bg-indigo-500 bg-black bg-lime-500 bg-violet-500 bg-sky-500 bg-red-500 bg-purple-500 bg-teal-500 bg-orange-500 bg-blue-500"
+            className=" bg-indigo-500 bg-black bg-lime-500 bg-deep-purple-500 bg-light-blue-500 bg-red-500 bg-purple-500 bg-teal-500 bg-orange-500 bg-blue-500"
           ></button>
           {elemento.En === null ? (
             <button

@@ -68,7 +68,7 @@ const ElectroNegatividad = () => {
                 <>
                   <button
                     onClick={() => calcularElectro()}
-                    className=" rounded-lg border p-2 bg-sky-600 text-white"
+                    className=" rounded-lg border p-2 bg-light-blue-600 text-white"
                   >
                     Calcular
                   </button>

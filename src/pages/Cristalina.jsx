@@ -158,7 +158,7 @@ export default function Cristalina() {
                   <p className="">Picos de difraccion:</p>{" "}
                   <button
                     onClick={agregarInput}
-                    className=" border bg-green-400 hover:bg-green-500 p-2 rounded-lg "
+                    className=" border bg-green-400 hover:bg-green-500 p-2 rounded-lg text-white"
                   >
                     Agregar{" "}
                   </button>
@@ -176,7 +176,7 @@ export default function Cristalina() {
                     />
                     {picos.length > 2 && (
                       <button
-                        className=" rounded-lg bg-red-400 hover:bg-red-500  p-2 "
+                        className=" rounded-lg bg-red-400 hover:bg-red-500  p-2 text-white"
                         onClick={() => eliminarInput(index)}
                       >
                         Eliminar
@@ -192,7 +192,7 @@ export default function Cristalina() {
             <div className="flex justify-center mt-4">
               <button
                 onClick={calculate}
-                className=" p-2 bg-green-400 hover:bg-green-500  rounded-lg"
+                className=" p-2 bg-green-400 hover:bg-green-500  rounded-lg text-white"
               >
                 Calcular
               </button>

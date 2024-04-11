@@ -39,14 +39,7 @@ export default function ModalCrystal({ open, handleOpen, resultado, imagen }) {
           </div>
         </DialogBody>
         <DialogFooter>
-          <Button
-            variant="text"
-            color="red"
-            onClick={handleOpen}
-            className="mr-1"
-          >
-            <span>Cancel</span>
-          </Button>
+          
           <Button variant="gradient" color="green" onClick={handleOpen}>
             <span>Confirm</span>
           </Button>
